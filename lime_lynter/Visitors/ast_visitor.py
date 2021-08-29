@@ -1,7 +1,7 @@
 import abc
 import ast
 from types import List
-from lime_lynter.Violations.template import TemplateViolation
+from Violations.template import TemplateViolation
 
 
 class Visitor(object, metaclass=abc.ABCMeta):

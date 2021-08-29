@@ -1,14 +1,19 @@
-from lime_lynter.Violations.correctness import LambdaAssigningViolation
-from lime_lynter.Visitors.ast_visitor import Visitor
+import ast
+from Violations.correctness import LambdaAssigningViolation
+from Visitors.ast_visitor import ASTVisitor
 
 
-class LambdaAssigningVisitor(Visitor):
+class LambdaAssigningVisitor(ASTVisitor):
     """
-    Something
+    Something.
     """
 
     def __init__(self) -> None:
         super().__init__()
+
+    def visit_Assign(self, node: ast.Assign):
+        if isinstance(node.value, ast.Lambda):
+            self.add_violation(LambdaAssigningViolation)
 
     def run(self) -> None:
         self.add_violation(LambdaAssigningViolation)

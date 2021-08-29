@@ -9,7 +9,7 @@ LambdaAssigningViolation
 """
 
 
-from lime_lynter.Violations.template import TemplateViolation
+from Violations.template import TemplateViolation
 
 
 class LambdaAssigningViolation(TemplateViolation):

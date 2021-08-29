@@ -9,7 +9,7 @@ TypeUsageViolation
 """
 
 
-from lime_lynter.Violations.template import TemplateViolation
+from Violations.template import TemplateViolation
 
 
 class TypeUsageViolation(TemplateViolation):
