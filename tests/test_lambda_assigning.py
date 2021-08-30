@@ -1,8 +1,10 @@
-import pytest
-import ast
+"""Test the lambda assigning visitor."""
 
-from lime_lynter.Visitors.Correctness.correctness import LambdaAssigningVisitor
+import ast
+import pytest
+
 from lime_lynter.Violations.correctness import LambdaAssigningViolation
+from lime_lynter.Visitors.Correctness.correctness import LambdaAssigningVisitor
 
 lambda_assigning = """
 f = lambda x: 2 * x
@@ -13,6 +15,12 @@ f = lambda x: 2 * x
 def test_lambda_assigning(
     code,
 ):
+    """
+    Test lambda assigning.
+
+    Args:
+        code: Sample code.
+    """
     tree = ast.parse(code)
     visitor = LambdaAssigningVisitor()
     visitor.run(tree)
