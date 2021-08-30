@@ -28,9 +28,7 @@ class Plugin(object):
         self._tree = tree
 
     def run(self) -> Generator[Tuple[int, int, str, Type[Any]], None, None]:
-        """
-        Perform all the visitors within the lime lynter.
-        """
+        """Perform all the visitors within the lime lynter."""
         visitor = LambdaAssigningVisitor()
         visitor.visit(self._tree)
 
