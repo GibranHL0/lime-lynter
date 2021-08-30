@@ -14,7 +14,7 @@ class LambdaAssigningVisitor(ASTVisitor):
         Visit only the assign ast type.
 
         Args:
-            node: ast Assign types
+            node: ast Assign types.
         """
         if isinstance(node.value, ast.Lambda):
             self.add_violation(LambdaAssigningViolation(node))
