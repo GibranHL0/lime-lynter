@@ -9,7 +9,7 @@ TypeUsageViolation
 """
 
 
-from Violations.template import TemplateViolation
+from lime_lynter.Violations.template import TemplateViolation
 
 
 class TypeUsageViolation(TemplateViolation):
@@ -53,5 +53,6 @@ class TypeUsageViolation(TemplateViolation):
     Using type() to compare types. Retrieved from:
     shorturl.at/fyBE8
     """
-    def __init__(self) -> None:
-        super().__init__('Found type() usage', 301)
+
+    error = 'Found type() usage'
+    code = 301

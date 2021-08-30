@@ -1,19 +1,15 @@
 import ast
-from Violations.correctness import LambdaAssigningViolation
-from Visitors.ast_visitor import ASTVisitor
+
+from lime_lynter.Violations.correctness import LambdaAssigningViolation
+from lime_lynter.Visitors.ast_visitor import ASTVisitor
 
 
 class LambdaAssigningVisitor(ASTVisitor):
     """
-    Something.
+    Uses the Flake8 API to check all ast.Assign classes to verify
+    whether it was an assignment of a Lambda function or not.
     """
-
-    def __init__(self) -> None:
-        super().__init__()
 
     def visit_Assign(self, node: ast.Assign):
         if isinstance(node.value, ast.Lambda):
-            self.add_violation(LambdaAssigningViolation)
-
-    def run(self) -> None:
-        self.add_violation(LambdaAssigningViolation)
+            self.add_violation(LambdaAssigningViolation(node))

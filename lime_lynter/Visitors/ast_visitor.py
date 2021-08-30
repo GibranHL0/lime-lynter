@@ -1,12 +1,12 @@
 import abc
 import ast
-from types import List
-from Violations.template import TemplateViolation
+from typing import List
+from lime_lynter.Violations.template import TemplateViolation
 
 
 class Visitor(object, metaclass=abc.ABCMeta):
     def __init__(self) -> None:
-        self.violations: List[TemplateViolation]
+        self.violations: List[TemplateViolation] = []
 
     def add_violation(self, violation: TemplateViolation) -> None:
         """ Adds a violation to the visitor. """
@@ -23,13 +23,9 @@ class Visitor(object, metaclass=abc.ABCMeta):
 
 
 class ASTVisitor(ast.NodeVisitor, Visitor, metaclass=abc.ABCMeta):
-    def __init__(self, tree: ast.AST) -> None:
+    def __init__(self) -> None:
         super().__init__()
-        self.tree = tree
 
-    def visit(self, tree: ast.AST) -> None:
-        return ast.NodeVisitor.visit(tree)
-
-    def run(self) -> None:
-        self.visit(self.tree)
+    def run(self, tree: ast.AST) -> None:
+        self.visit(tree)
         self._post_visit()

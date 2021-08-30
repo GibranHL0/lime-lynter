@@ -1,12 +1,12 @@
 import ast
 from types import Set
 
-from lime_lynter import Plugin
+import lime_lynter
 
 
 def _results(s: str) -> Set[str]:
     tree = ast.parse(s)
-    plugin = Plugin(tree)
+    plugin = lime_lynter.lime_lynter.Plugin(tree)
     return {f'{line}:{col} {msg}' for line, col, msg, _ in plugin.run()}
 
 

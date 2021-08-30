@@ -10,7 +10,7 @@ WithOpenViolation
 """
 
 
-from Violations.template import TemplateViolation
+from lime_lynter.Violations.template import TemplateViolation
 
 
 class WithOpenViolation(TemplateViolation):
@@ -44,5 +44,6 @@ class WithOpenViolation(TemplateViolation):
     Not using with to open files. Retrieved from:
     shorturl.at/imAQW
     """
-    def __init__(self) -> None:
-        super().__init__('Found open without `with` statement', 201)
+
+    error = 'Found open without `with` statement'
+    code = 201

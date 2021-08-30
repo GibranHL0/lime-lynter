@@ -1,4 +1,5 @@
 import pytest
+import ast
 
 from lime_lynter.Visitors.Correctness.correctness import LambdaAssigningVisitor
 from lime_lynter.Violations.correctness import LambdaAssigningViolation
@@ -10,13 +11,13 @@ f = lambda x: 2 * x
 
 @pytest.mark.parametrize('code', [lambda_assigning])
 def test_lambda_assigning(
-    assert_errors,
-    parse_ast_tree,
     code,
-    mode,
 ):
-    tree = parse_ast_tree(mode(code))
-    visitor = LambdaAssigningVisitor(tree)
-    visitor.run()
+    tree = ast.parse(code)
+    visitor = LambdaAssigningVisitor()
+    visitor.run(tree)
 
-    assert_errors(visitor, [LambdaAssigningViolation])
+    for violation in visitor.violations:
+        isinstance(violation, LambdaAssigningViolation)
+
+    assert len(visitor.violations) == 1

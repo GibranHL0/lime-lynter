@@ -8,8 +8,7 @@ LambdaAssigningViolation
 
 """
 
-
-from Violations.template import TemplateViolation
+from lime_lynter.Violations.template import TemplateViolation
 
 
 class LambdaAssigningViolation(TemplateViolation):
@@ -40,5 +39,6 @@ class LambdaAssigningViolation(TemplateViolation):
     Assigning a lambda expression to a variable. Retrieved from:
     shorturl.at/sDFLO
     """
-    def __init__(self) -> None:
-        super().__init__('Found lambda assigning', 101)
+
+    error = 'Found lambda assigning'
+    code = 101
