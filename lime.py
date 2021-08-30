@@ -5,6 +5,8 @@ import sys
 from typing import Any, Generator, Tuple, Type
 
 from lime_lynter.Visitors.Correctness.correctness import LambdaAssigningVisitor
+from lime_lynter.Visitors.Maintainability.mty import WithOpenVisitor
+from lime_lynter.Visitors.Readability.read import TypeUsageVisitor
 
 if sys.version_info < (3, 8):
     import importlib_metadata
@@ -29,11 +31,13 @@ class Plugin(object):
 
     def run(self) -> Generator[Tuple[int, int, str, Type[Any]], None, None]:
         """Perform all the visitors within the lime lynter."""
-        visitor = LambdaAssigningVisitor()
-        visitor.visit(self._tree)
+        visitors = [LambdaAssigningVisitor(), TypeUsageVisitor(), WithOpenVisitor()]
 
-        for violation in visitor.violations:
-            line = violation.line
-            col = violation.column
-            msg = f'LML{violation.code} {violation.error}'
-            yield line, col, msg, type(self)
+        for visitor in visitors:
+            visitor.visit(self._tree)
+
+            for violation in visitor.violations:
+                line = violation.line
+                col = violation.column
+                msg = f'LML{violation.code} {violation.error}'
+                yield line, col, msg, type(self)
